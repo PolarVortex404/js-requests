@@ -2,6 +2,12 @@
 //THE TEST SERVER IS RUNNING ON LOCALHOST:3000//
 ////////////////////////////////////////////////
 
+// const { default: axios } = require("axios");
+
+// const { default: axios } = require("axios");
+
+// const { default: axios } = require("axios");
+
 // PROBLEM 1
 /*
     In the index.html file in this folder there is a button with an id of 'say-hello-button'!
@@ -10,7 +16,8 @@
 */
 
 // CODE HERE
-
+let sayHelloButton = document.querySelector('#say-hello-button') //null error received w/o using the #
+// console.log(sayHelloButton)
 
 // PROBLEM 2
 /*
@@ -20,6 +27,11 @@
 */
 
 // CODE HERE
+
+sayHelloButton.addEventListener('mouseover', () => {
+    sayHelloButton.style.backgroundColor = 'black';
+    sayHelloButton.style.color = 'white';
+})
 
 
 // PROBLEM 3
@@ -32,6 +44,10 @@
 */
 
 // CODE HERE
+sayHelloButton.addEventListener('mouseout', () =>{
+    sayHelloButton.style.backgroundColor = '#EFEFEF';
+    sayHelloButton.style.color = 'black'
+})
 
 
 // PROBLEM 4
@@ -52,7 +68,8 @@ const sayHello = () => {
 }
 // DO NOT EDIT FUNCTION
 
-// CODE HERE
+sayHelloButton.addEventListener('click', sayHello)
+
 
 
 // PROBLEM 5 
@@ -63,11 +80,16 @@ const sayHello = () => {
     
     Use axios inside the ohMy function to make a GET request to 'http://localhost:3000/animals' 
     
-    Handle the promise that's returned with a .then, which you should pass a callback function to. Inside the callback function, console.log the response's data (in the intermediate instructions we'll come back to this function and add HTML).
+    Handle the promise that's returned with a .then, which you should pass a callback function to. 
+    Inside the callback function, console.log the response's data (in the intermediate instructions 
+        we'll come back to this function and add HTML).
 */ 
 
 const ohMy = () => {
-    // YOUR CODE HERE
+    axios.get('http://localhost:3000/animals')
+    .then(res =>{
+        console.log(res.data)
+    })
 }
 
 document.getElementById('animals-button').addEventListener('click', ohMy)
@@ -75,26 +97,38 @@ document.getElementById('animals-button').addEventListener('click', ohMy)
 
 // PROBLEM 6 
 /*
-    Now lets see if you can send a request param! inside repeatMyParam function below  make get request to 'http://localhost:3000/repeat/{SOMEPARAM}', but with a string instead of {SOMEPARAM}.  
+    Now lets see if you can send a request param! inside repeatMyParam function below  make get request to 'http://localhost:3000/repeat/{SOMEPARAM}', 
+    but with a string instead of {SOMEPARAM}.  
 
     The function that runs when this request is made will return whatever parameter you sent 
 
-    Handle the promise returned from the request with a .then, which will take in a callback -- the callback function should print the response.data.
+    Handle the promise returned from the request with a .then, which will take in a callback -- 
+    the callback function should print the response.data.
     
-    Outside of the function, select the button with the id "repeat-button" and add a click event listener that calls the repeatMyParam function.
+    Outside of the function, select the button with the id "repeat-button" and add a 
+    click event listener that calls the repeatMyParam function.
     
     We'll be updating this function in the next problem.
 */
 
 const repeatMyParam = () => {
-    //YOUR CODE HERE
+    axios.get('http://localhost:3000/repeat/th-th-thats-all-folks')
+    .then(res =>{ 
+        let data = res.data //creating a variable to hold res.data
+        console.log(res.data)
+        let repeat = document.querySelector('#repeat-text')
+        repeat.textContent = data 
+    getElementById('#repeat-text').textContent = res.data
+    })
 }
 
+document.getElementById('repeat-button').addEventListener('click',repeatMyParam)
 // PROBLEM 7
 /*
-    Now that we have the response data, let's add it to our web page! 
-    
-    Inside the repeatMyParam function above, grab the element with the id of 'repeat-text' and set its textContent property equal to the response data.
+Now that we have the response data, let's add it to our web page! 
+
+Inside the repeatMyParam function above, grab the element with the id of 'repeat-text' and
+set its textContent property equal to the response data.
 */
 
 // Code in the repeatMyParam function above
